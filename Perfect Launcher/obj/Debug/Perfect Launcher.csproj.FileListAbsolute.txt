@@ -1,0 +1,42 @@
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\bin\Debug\Perfect Launcher.exe.config
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\bin\Debug\Perfect Launcher.exe
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\bin\Debug\Perfect Launcher.pdb
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Form1.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Properties.Resources.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.csproj.GenerateResource.cache
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.csproj.CoreCompileInputs.cache
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.exe
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.pdb
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.AddEditUser.resources
+D:\Level Up\Perfect World\element\Perfect Launcher.exe.config
+D:\Level Up\Perfect World\element\Perfect Launcher.exe
+D:\Level Up\Perfect World\element\Perfect Launcher.pdb
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Manage.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Customizar.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Combo.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.csprojAssemblyReference.cache
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.CalcFama.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.CheckForm.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Global.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.CloseAll.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.PicPay.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.ExeArgs.resources
+C:\Users\felip\source\repos\Perfect Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.FormAtalhos.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.csprojAssemblyReference.cache
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.AddEditUser.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.CalcFama.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.CheckForm.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.CloseAll.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Combo.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Customizar.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.ExeArgs.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Form1.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.FormAtalhos.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Global.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Manage.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.PicPay.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect_Launcher.Properties.Resources.resources
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.csproj.GenerateResource.cache
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.csproj.CoreCompileInputs.cache
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.exe
+C:\Users\felip\Source\Repos\Perfect_Launcher\Perfect Launcher\obj\Debug\Perfect Launcher.pdb
