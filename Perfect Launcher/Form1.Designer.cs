@@ -63,7 +63,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.twitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.picPayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notasDeAtualizaçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.versão1000ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +73,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.gerenciarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.abrirTODASAsContasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atualizarOPWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculadoraDeFamaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkinDiárioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +94,8 @@
             this.resetarOProgramaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
+            this.executávelCustomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -399,7 +401,6 @@
             this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.twitterToolStripMenuItem,
-            this.picPayToolStripMenuItem,
             this.notasDeAtualizaçãoToolStripMenuItem,
             this.toolStripSeparator3,
             this.versão1000ToolStripMenuItem});
@@ -414,14 +415,6 @@
             this.twitterToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.twitterToolStripMenuItem.Text = "Contato (Twitter)";
             this.twitterToolStripMenuItem.Click += new System.EventHandler(this.twitterToolStripMenuItem_Click);
-            // 
-            // picPayToolStripMenuItem
-            // 
-            this.picPayToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("picPayToolStripMenuItem.Image")));
-            this.picPayToolStripMenuItem.Name = "picPayToolStripMenuItem";
-            this.picPayToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.picPayToolStripMenuItem.Text = "Doações (PicPay)";
-            this.picPayToolStripMenuItem.Click += new System.EventHandler(this.picPayToolStripMenuItem_Click);
             // 
             // notasDeAtualizaçãoToolStripMenuItem
             // 
@@ -440,7 +433,7 @@
             this.versão1000ToolStripMenuItem.Enabled = false;
             this.versão1000ToolStripMenuItem.Name = "versão1000ToolStripMenuItem";
             this.versão1000ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.versão1000ToolStripMenuItem.Text = "Versão 1.0.0.3";
+            this.versão1000ToolStripMenuItem.Text = "Versão xxxx";
             // 
             // toolStripMenuItem2
             // 
@@ -490,6 +483,7 @@
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.abrirTODASAsContasToolStripMenuItem,
             this.atualizarOPWToolStripMenuItem,
             this.calculadoraDeFamaToolStripMenuItem,
             this.checkinDiárioToolStripMenuItem,
@@ -499,6 +493,13 @@
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(53, 20);
             this.toolStripMenuItem4.Text = "Extras";
+            // 
+            // abrirTODASAsContasToolStripMenuItem
+            // 
+            this.abrirTODASAsContasToolStripMenuItem.Name = "abrirTODASAsContasToolStripMenuItem";
+            this.abrirTODASAsContasToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.abrirTODASAsContasToolStripMenuItem.Text = "Abrir TODAS as contas";
+            this.abrirTODASAsContasToolStripMenuItem.Click += new System.EventHandler(this.abrirTODASAsContasToolStripMenuItem_Click);
             // 
             // atualizarOPWToolStripMenuItem
             // 
@@ -608,9 +609,8 @@
             this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBox1.Items.AddRange(new object[] {
             "NENHUM",
-            "Ophiuchus (PvE)",
-            "Phoenix (PvP)",
-            "Taurus (PvP)"});
+            "Ophiuchus(PvE)",
+            "Cassiopeia(PvP)"});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
@@ -624,7 +624,8 @@
             // 
             this.avançadasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.executáveisEArgumentosToolStripMenuItem,
-            this.resetarOProgramaToolStripMenuItem});
+            this.resetarOProgramaToolStripMenuItem,
+            this.executávelCustomToolStripMenuItem});
             this.avançadasToolStripMenuItem.Name = "avançadasToolStripMenuItem";
             this.avançadasToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.avançadasToolStripMenuItem.Text = "Avançadas";
@@ -665,6 +666,21 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Visible = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // executávelCustomToolStripMenuItem
+            // 
+            this.executávelCustomToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripTextBox1});
+            this.executávelCustomToolStripMenuItem.Name = "executávelCustomToolStripMenuItem";
+            this.executávelCustomToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.executávelCustomToolStripMenuItem.Text = "Executável custom";
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox1.TextChanged += new System.EventHandler(this.toolStripTextBox1_TextChanged);
             // 
             // Form1
             // 
@@ -766,7 +782,6 @@
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem atualizarOPWToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem picPayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem notasDeAtualizaçãoToolStripMenuItem;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.ToolStripMenuItem avançadasToolStripMenuItem;
@@ -775,5 +790,8 @@
         private System.Windows.Forms.ToolStripMenuItem executáveisEArgumentosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forçarServidorToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripMenuItem abrirTODASAsContasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem executávelCustomToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
     }
 }

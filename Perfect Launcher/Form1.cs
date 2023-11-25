@@ -12,6 +12,8 @@ using System.IO;
 using Perfect_Launcher.Properties;
 using System.Runtime.InteropServices;
 using System.Net;
+using System.Threading;
+using System.Reflection;
 
 namespace Perfect_Launcher
 {
@@ -49,8 +51,8 @@ namespace Perfect_Launcher
         // Bloqueia a troca de arquitetura caso algum jogo esteja aberto
         public bool bBlockArchChange = false;
 
-        const string Exe32 = "ELEMENTCLIENT.EXE";
-        const string Exe64 = "elementclient_64.exe";
+        string Exe32 = "ELEMENTCLIENT.EXE";
+        string Exe64 = "elementclient_64.exe";
 
         [DllImport("user32.dll")]
         internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
@@ -58,6 +60,8 @@ namespace Perfect_Launcher
         public Form1()
         {
             InitializeComponent();
+
+            versão1000ToolStripMenuItem.Text = $"Versão {Assembly.GetEntryAssembly().GetName().Version}";
 
             ScrollTextDefaultValue = labelGlobal.Top;
 
@@ -86,7 +90,6 @@ namespace Perfect_Launcher
             // TODO: Maximizar a janela do programa aberto ao invés de fecha-lá
             if (p.Length > 1)
                 WM.ShowMessage("O programa já está em execução.", 0, false, true);
-
 
             // Prepara o programa para o primeiro uso
             if (Settings.Default.bFirstRun)
@@ -196,8 +199,18 @@ namespace Perfect_Launcher
             label1.ForeColor = NewColor;
         }
 
-        public void OpenGame(int UserId, bool bOnlyAdd = false, int ProcessId = -1)
+        public void OpenGame(int UserId, bool bOnlyAdd = false, int ProcessId = -1, bool IgnorarAbertas = false)
         {
+            // Checa por updates
+            if (bHasUpdate)
+            {
+                CheckForClientUpdates();
+
+                // Se continuar tendo update, não abre conta nenhuma
+                if (bHasUpdate)
+                    return;
+            }
+
             // Login e senha
             string User = Settings.Default.User[UserId];
             // TODO: Desfazer o hash da senha ao abrir
@@ -208,7 +221,7 @@ namespace Perfect_Launcher
             {
                 try
                 {
-                    if (RGames[i].User == User)
+                    if (RGames[i].User == User && !IgnorarAbertas)
                     {
                         DialogResult dr = WM.ShowMessage("A conta '" + User + "' já está aberta.\nDeseja abri-la mesmo assim?", 1, true);
                         if (dr != DialogResult.Yes)
@@ -237,12 +250,19 @@ namespace Perfect_Launcher
             // Criar uma linha inteira em base64 e verificar se ela já existe no arquivo,
             // se ela não existir, adiciona ela.
 
+            var caminhoArquivoAccounts = Application.StartupPath + "\\userdata\\accounts.txt";
+            var fileInfo = new FileInfo(caminhoArquivoAccounts);
+
+            /* Remove o atributo de Somente Leitura */
+            if ((fileInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                fileInfo.Attributes &= ~FileAttributes.ReadOnly;
+
             if (Settings.Default.ForceServer != "NENHUM")
             {
                 try
                 {
                     List<string> Content = new List<string>();
-                    foreach (string s in File.ReadAllLines(Application.StartupPath + "\\userdata\\accounts.txt"))
+                    foreach (string s in File.ReadAllLines(caminhoArquivoAccounts))
                         Content.Add(s);
 
                     // Se a primeira linha NÃO existir ou for diferente de true
@@ -259,17 +279,7 @@ namespace Perfect_Launcher
                     }
 
                     // Converte o usuário e o servidor para bas64
-                    int GatewayN;
-                    switch (Settings.Default.ForceServer)
-                    {
-                        //Ophiuchus (PvE)
-                        //Phoenix (PvP)
-                        //Taurus (PvP)
-                        case "Ophiuchus (PvE)": GatewayN = 2; break;
-                        case "Phoenix (PvP)": GatewayN = 3; break;
-                        default:
-                            GatewayN = 7; break;
-                    }
+                    int GatewayN = ((Settings.Default.ForceServer == "Cassiopeia(PvP)") ? 3 : 2);
                     string UserBase64 = Convert.ToBase64String(Encoding.Unicode.GetBytes(User));
                     string ServerBase64 = Convert.ToBase64String(Encoding.Unicode.GetBytes("29000:gateway" + GatewayN.ToString() + ".perfectworld.com.br,"
                         + Settings.Default.ForceServer + ",0"));
@@ -304,7 +314,7 @@ namespace Perfect_Launcher
                     }
 
                     // Depois escreve de volta no arquivo
-                    File.WriteAllText(Application.StartupPath + "\\userdata\\accounts.txt", Result);
+                    File.WriteAllText(caminhoArquivoAccounts, Result);
                 }
                 catch (Exception x)
                 {
@@ -315,18 +325,29 @@ namespace Perfect_Launcher
             {
                 // Apaga tudo que está no arquivo e deixa como false
                 // Assim, aparecerá a lista de servidores pro jogador escolher
-                File.WriteAllText(Application.StartupPath + "\\userdata\\accounts.txt", "false");
+                File.WriteAllText(caminhoArquivoAccounts, "false");
             }
+
+            fileInfo.Attributes |= FileAttributes.ReadOnly;
 
             // Argumentos que serão usados
             string args = " startbypatcher " + Settings.Default.ExtraArgs + " user:" + User + " pwd:" + Passwd;
+
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = AppDomain.CurrentDomain.BaseDirectory + (string.IsNullOrWhiteSpace(Settings.Default.ExecutavelCustom) ? (Settings.Default.bUse64 ? $"x64\\{Exe64}" : Exe32) : Settings.Default.ExecutavelCustom),
+                Arguments = args,
+                WorkingDirectory = string.IsNullOrWhiteSpace(Settings.Default.ExecutavelCustom) ? (Settings.Default.bUse64 ? (AppDomain.CurrentDomain.BaseDirectory + "x64\\") : Application.StartupPath) : Application.StartupPath,
+                UseShellExecute = false,
+                CreateNoWindow = false
+            };
 
             // Cria uma classe temporária para ser armazenada na lista
             RunningGames rg = new RunningGames();
 
             // Cria o processo, seta seu id e o usuário                    // Abre conforme a setting
             if (!bOnlyAdd)
-                rg.ProcessId = Process.Start(Application.StartupPath + "\\" + (Settings.Default.bUse64 ? Exe64 : Exe32), args).Id;
+                rg.ProcessId = Process.Start(processStartInfo).Id;
             else
                 rg.ProcessId = ProcessId;
 
@@ -604,16 +625,6 @@ namespace Perfect_Launcher
             if (usersComboBox.SelectedItem == null)
                 return;
 
-            // Checa por updates
-            if (bHasUpdate)
-            {
-                CheckForClientUpdates();
-
-                // Se continuar tendo update, não abre conta nenhuma
-                if (bHasUpdate)
-                    return;
-            }
-
             try
             {
                 OpenGame(usersComboBox.SelectedIndex);
@@ -742,7 +753,10 @@ namespace Perfect_Launcher
                 Process p = Process.GetProcessById(ProcessId);
 
                 // Checa se o processo bate com o do jogo                    // .exe minúsculo no caso de ser x64 e maiúsculo no caso de ser x32
-                string ProcessName = (Settings.Default.bUse64 ? Exe64 : Exe32).Replace(Settings.Default.bUse64 ? ".exe" : ".EXE", "");
+                string ProcessName = 
+                    string.IsNullOrWhiteSpace(Settings.Default.ExecutavelCustom)
+                    ? (Settings.Default.bUse64 ? Exe64 : Exe32).Replace(Settings.Default.bUse64 ? ".exe" : ".EXE", "")
+                    : Settings.Default.ExecutavelCustom;
                 if (p.ProcessName == ProcessName)
                     return true;
                 else
@@ -1197,12 +1211,6 @@ namespace Perfect_Launcher
             }
         }
 
-        private void picPayToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PicPay pp = new PicPay();
-            pp.ShowDialog(); // pp.show kkkkk
-        }
-
         private void notasDeAtualizaçãoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://pastebin.com/raw/rGnU5DFs");
@@ -1257,7 +1265,7 @@ namespace Perfect_Launcher
         private void exportarToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             // Cria um arquivo com todas as contas, senhas e classes no seguinte esquema:
-            // ¹conta² ³senha£ ¢classe¬
+            // ¹conta² ³senha£ ¢classe¬ (cruuzeeeeeeeeeeeeeeeees)
             if (Settings.Default.Passwd.Count != Settings.Default.User.Count || Settings.Default.Classe.Count != Settings.Default.User.Count)
             {
                 // Se TODAS essa settings não tiverem o mesmo número, tem algo errado ai.
@@ -1315,6 +1323,29 @@ namespace Perfect_Launcher
         {
             FormAtalhos fa = new FormAtalhos();
             fa.ShowDialog();
+        }
+
+        private void abrirTODASAsContasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (usersComboBox.Items.Count <= 0)
+                return;
+
+            var wm = new WarningMessages();
+            if (wm.ShowMessage($"Abrir TODAS as contas pode ser um procedimento pesado.\nTem certeza que deseja continuar?", 1, true) == DialogResult.Yes)
+            {
+                var qtContas = usersComboBox.Items.Count;
+
+                for (int i = 0; i < qtContas; i++)
+                {
+                    OpenGame(i, IgnorarAbertas: true);
+                    Thread.Sleep(800);
+                }
+            }
+        }
+
+        private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            Settings.Default.ExecutavelCustom = ((ToolStripTextBox)sender).Text;
         }
     }
 }
